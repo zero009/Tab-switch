@@ -28,21 +28,6 @@ div.show{
 	<div>33333</div>
 </body>
 <script type="text/javascript">
-	var aBtn = document.getElementsByTagName('input');
-	var aDiv = document.getElementsByTagName('div');
-	var oBtn = aBtn[0];
-	var oDiv = aDiv[0];
-	for(var i=0;i<aBtn.length;i++){
-		aBtn[i].index = i;//定点清除
-		
-		aBtn[i].onclick = function(){
-			oBtn.className = '';
-			oDiv.className = '';
-            this.className = 'active';
-			aDiv[this.index].className = 'show';
-            oBtn = this;
-			oDiv = aDiv[this.index];
-		}
-   }
+
 </script>
 </html>
