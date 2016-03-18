@@ -56,31 +56,29 @@
 
 	
 	 
-/*	
+/*	var aBtn = document.getElementsByTagName('input');
+	var aDiv = document.getElementsByTagName('div');
+	var oBtn = aBtn[0];
+	var oDiv = aDiv[0];
 	for(var i=0;i<aBtn.length;i++){
-		aBtn[i].index = i;
-        aBtn[i].onclick = function(){
-		oBtn.className = '';
+		aBtn[i].index = i;//定点清除
 		
-		//alert(aBtn[1].index)
-		
-		aDiv[oBtn.index].className = '';
-		
-		this.className = 'active';
-		
-		aDiv[this.index].className = 'show';
-		
-	    //	alert(oBtn.index)
-		
-		oBtn = this;
+		aBtn[i].onclick = function(){
+			oBtn.className = '';
+			oDiv.className = '';
+                        this.className = 'active';
+			aDiv[this.index].className = 'show';
+                        oBtn = this;
+			oDiv = aDiv[this.index];
 		}
+        }
 */
 
-window.onload = function(){
-	var oBtn1 = document.getElementById('btn1');
+ 
+    var oBtn1 = document.getElementById('btn1');
     var oBtn2 = document.getElementById('btn2');
     var oBtn3 = document.getElementById('btn3');
-	var t = new Init('box1');
+    var t = new Init('box1');
     t.tab();
     var t2 = new Init('box2');
     t2.tab();
@@ -94,81 +92,60 @@ window.onload = function(){
     oBtn3.onclick = function(){
        t.statusnow()?t.stop():t.play();
        t2.statusnow()?t2.stop():t2.play();
-    }   
-     
-}
-
+    } 
     function Init(id){//形参
        var oBox = document.getElementById(id);
        this.aBtn = oBox.getElementsByTagName('input');
-	   this.aDiv = oBox.getElementsByTagName('div');
-	   this.num=0 ;
-	   this.timer = null ;
+       this.aDiv = oBox.getElementsByTagName('div');
+       this.num=0 ;
+       this.timer = null ;
 	   
-	}
-	Init.prototype.tab = function(){
-	  var This = this;
-	  //console.log(This);  //this指的Init即box1
-   	  for(var i=0;i<this.aBtn.length;i++){
-			this.aBtn[i].index = i;
-	        this.aBtn[i].onclick = function(){   
-	            This.num= this.index ; //num值等于当前的点击值即索引
-		    	This.qx(this);
+   }
+   Init.prototype.tab = function(){
+	var This = this;
+	//console.log(This);  //this指的Init即box1
+   	for(var i=0;i<this.aBtn.length;i++){
+	      this.aBtn[i].index = i;
+	      this.aBtn[i].onclick = function(){   
+	           This.num= this.index ; //num值等于当前的点击值即索引
+		   This.qx(this);
 		    	//console.log(this);
 		    	//this指的Init(box1)下的子元素即aBtn
-		     } 
+		    } 
 	   }
-    }
-	Init.prototype.qx = function(_this){
-		for(var i=0;i<this.aBtn.length;i++){
-			this.aBtn[i].className = '';
-			this.aDiv[i].className = '';
-		}
-		_this.className = 'active';
-	    this.aDiv[_this.index].className = 'show';
+   }
+   Init.prototype.qx = function(_this){
+	for(var i=0;i<this.aBtn.length;i++){
+		this.aBtn[i].className = '';
+		this.aDiv[i].className = '';
 	}
-	Init.prototype.play = function(){
-	  	var This = this;//this指的Init(box1) 
-	  	clearInterval(this.timer);
-		this.timer = setInterval(function(){
-			//console.log(This);
-			This.num++;
-			if(This.num >This.aBtn.length-1){
-				 This.num = 0 ;
-			} 
-			This.qx(This.aBtn[This.num]);
-		},1000)
-    }
-    Init.prototype.stop = function(){
-	  	 clearInterval(this.timer);
-	  	 this.timer = null ;
-    }
-    Init.prototype.statusnow = function(){
+	_this.className = 'active';
+        this.aDiv[_this.index].className = 'show';
+  }
+  Init.prototype.play = function(){
+       var This = this;//this指的Init(box1) 
+       clearInterval(this.timer);
+	this.timer = setInterval(function(){
+	    //console.log(This);
+     	    This.num++;
+	    if(This.num >This.aBtn.length-1){
+	       This.num = 0 ;
+	    } 
+	    This.qx(This.aBtn[This.num]);
+	},1000)
+   }
+  Init.prototype.stop = function(){
+	 clearInterval(this.timer);
+	 this.timer = null ;
+  }
+  Init.prototype.statusnow = function(){
     	//console.log(!!this.timer);//监听状态，定时器开启是true
     	return !!this.timer; 
-    }
-		
-    
-		
-		
-		
-		// 拆：将所有函数都拆出来
-		//把变量变成属性，把函数变成方法
-		// 将之前的变量全部转成对象下的属性
-		// 改变this
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+  }
+  // 拆：将所有函数都拆出来
+  //把变量变成属性，把函数变成方法
+  // 将之前的变量全部转成对象下的属性
+  // 改变this
 	
 </script>
 </html>
