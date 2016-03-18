@@ -27,15 +27,13 @@ div.show{
 	<div>222222</div>
 	<div>33333</div>
 </body>
-<script type="text/javascript">	
-
+<script type="text/javascript">
 	var aBtn = document.getElementsByTagName('input');
 	var aDiv = document.getElementsByTagName('div');
 	var oBtn = aBtn[0];
 	var oDiv = aDiv[0];
-	
 	for(var i=0;i<aBtn.length;i++){
-		aBtn[i].index = i;//定点清除性能好一些
+		aBtn[i].index = i;//定点清除
 		
 		aBtn[i].onclick = function(){
 			oBtn.className = '';
@@ -46,18 +44,5 @@ div.show{
 			oDiv = aDiv[this.index];
 		}
    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 </script>
 </html>
