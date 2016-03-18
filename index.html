@@ -52,9 +52,7 @@
 	<input type="button" id="btn3" value="反向计时器" />
 </div>
 </body>
-<script type="text/javascript">	
-
-	
+<script type="text/javascript">		
 	 
 /*	var aBtn = document.getElementsByTagName('input');
 	var aDiv = document.getElementsByTagName('div');
@@ -74,8 +72,8 @@
         }
 */
 
- 
-    var oBtn1 = document.getElementById('btn1');
+window.onload = function(){
+	var oBtn1 = document.getElementById('btn1');
     var oBtn2 = document.getElementById('btn2');
     var oBtn3 = document.getElementById('btn3');
     var t = new Init('box1');
@@ -93,55 +91,57 @@
        t.statusnow()?t.stop():t.play();
        t2.statusnow()?t2.stop():t2.play();
     } 
-    function Init(id){//形参
-       var oBox = document.getElementById(id);
-       this.aBtn = oBox.getElementsByTagName('input');
-       this.aDiv = oBox.getElementsByTagName('div');
-       this.num=0 ;
-       this.timer = null ;
+} 
+    
+function Init(id){//形参
+   var oBox = document.getElementById(id);
+   this.aBtn = oBox.getElementsByTagName('input');
+   this.aDiv = oBox.getElementsByTagName('div');
+   this.num=0 ;
+   this.timer = null ;
 	   
+}
+Init.prototype.tab = function(){
+var This = this;
+//console.log(This);  //this指的Init即box1
+	for(var i=0;i<this.aBtn.length;i++){
+      this.aBtn[i].index = i;
+      this.aBtn[i].onclick = function(){   
+           This.num= this.index ; //num值等于当前的点击值即索引
+	   This.qx(this);
+	    	//console.log(this);
+	    	//this指的Init(box1)下的子元素即aBtn
+	    } 
    }
-   Init.prototype.tab = function(){
-	var This = this;
-	//console.log(This);  //this指的Init即box1
-   	for(var i=0;i<this.aBtn.length;i++){
-	      this.aBtn[i].index = i;
-	      this.aBtn[i].onclick = function(){   
-	           This.num= this.index ; //num值等于当前的点击值即索引
-		   This.qx(this);
-		    	//console.log(this);
-		    	//this指的Init(box1)下的子元素即aBtn
-		    } 
-	   }
-   }
-   Init.prototype.qx = function(_this){
+}
+Init.prototype.qx = function(_this){
 	for(var i=0;i<this.aBtn.length;i++){
 		this.aBtn[i].className = '';
 		this.aDiv[i].className = '';
 	}
 	_this.className = 'active';
-        this.aDiv[_this.index].className = 'show';
-  }
-  Init.prototype.play = function(){
-       var This = this;//this指的Init(box1) 
-       clearInterval(this.timer);
+    this.aDiv[_this.index].className = 'show';
+}
+Init.prototype.play = function(){
+    var This = this;//this指的Init(box1) 
+    clearInterval(this.timer);
 	this.timer = setInterval(function(){
-	    //console.log(This);
-     	    This.num++;
-	    if(This.num >This.aBtn.length-1){
-	       This.num = 0 ;
-	    } 
-	    This.qx(This.aBtn[This.num]);
+    //console.log(This);
+ 	    This.num++;
+    	if(This.num >This.aBtn.length-1){
+             This.num = 0 ;
+   		 } 
+   		 This.qx(This.aBtn[This.num]);
 	},1000)
-   }
-  Init.prototype.stop = function(){
-	 clearInterval(this.timer);
-	 this.timer = null ;
-  }
-  Init.prototype.statusnow = function(){
-    	//console.log(!!this.timer);//监听状态，定时器开启是true
-    	return !!this.timer; 
-  }
+}
+Init.prototype.stop = function(){
+ 	clearInterval(this.timer);
+ 	this.timer = null ;
+}
+Init.prototype.statusnow = function(){
+	//console.log(!!this.timer);//监听状态，定时器开启是true
+	return !!this.timer; 
+}
   // 拆：将所有函数都拆出来
   //把变量变成属性，把函数变成方法
   // 将之前的变量全部转成对象下的属性
